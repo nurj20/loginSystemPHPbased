@@ -5,7 +5,7 @@ require 'header.php';
 
 if(isset($_SESSION['user']))
 {
-    if(time()-$_SESSION['last_login_timestamp'] > 0)
+    if(time()-$_SESSION['last_login_timestamp'] > 60)
     header("Location: includes/signout.inc.php");
 }
 else

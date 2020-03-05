@@ -3,12 +3,15 @@
 
 if(!isset($_POST['login']))
     {
-        redirect('AccessDenied');
+        header("Location: ../signin.php?error=AccessDenied");
+        exit();
     }
 
   if (empty($_POST['name']) || empty($_POST['password']))
        {
-        redirect('EmptyFileds');
+        // redirect('EmptyFileds');
+        header("Location: ../signin.php?error=EmptyFields");
+        exit();
        }
         require 'dbh.inc.php';
         $name = $_POST['name'];
@@ -25,10 +28,13 @@ if(!isset($_POST['login']))
                         $_SESSION['user']  = $data->name;
                         $_SESSION['last_login_timestamp'] = time();
                         header('Location: ../index.php?status=LoggedIn&user='.$data->name);
+                        exit();
                     }
-                    else  redirect('InvalidCredencials');
+                    else  header('Location: ../signin.php?error=invalidusernameorpassword');
+                            exit();
             }    
-            else redirect('InvalidCredencials');
+            else header('Location: ../signin.php?errorInvalidCredencials');
+                exit();
                     
                
 
